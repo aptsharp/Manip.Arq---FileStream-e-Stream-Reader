@@ -8,16 +8,18 @@ namespace Manip.Arq
         static void Main(string[] args)
         {
             string path = @"C:\Users\aff-o\source\repos\Manip.Arq\Msg.txt";
-            FileStream fs = null;
             StreamReader sr = null;
 
             try
             {
-                fs = new FileStream(path, FileMode.Open);
-                sr = new StreamReader(fs);
-                //duas linhas de codigo não são viaveis para fazer a instanciação
-                string line = sr.ReadLine();
-                Console.WriteLine(line);
+                sr = File.OpenText(path); //estancia o streamReader de uma forma automatica
+                while (!sr.EndOfStream)
+                {
+                    string line = sr.ReadLine();
+                    Console.WriteLine(line);
+                    //para ler o arquivo ate o fim.
+                }
+
             }
             catch (IOException e)
             {
@@ -27,6 +29,7 @@ namespace Manip.Arq
             finally
             {
                 if (sr != null) sr.Close();
+                //para fechar o streamReader automaticamente.
             }
         }
     }
